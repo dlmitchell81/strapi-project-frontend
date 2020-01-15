@@ -4,8 +4,13 @@ import { parseAndSanitizeHtml } from '../utils/parseAndSanitizeHtml';
 const getHeroContent = hero => {
   const { REACT_APP_CMS_URL } = process.env;
   const { background_image, heading_text, cta_text } = hero;
+  /* TODO: Extract to common utility */
+  const imageUrl =
+    process.env.NODE_ENV === 'production'
+      ? background_image.url
+      : `${REACT_APP_CMS_URL}/${background_image.url}`;
   const heroBackgroundImage = {
-    backgroundImage: `url(${REACT_APP_CMS_URL}${background_image.url})`
+    backgroundImage: `url(${imageUrl})`
   };
   return (
     <section className='hero' style={heroBackgroundImage}>

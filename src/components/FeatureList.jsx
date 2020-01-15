@@ -3,15 +3,16 @@ import React from 'react';
 const getFeaturedItem = feature => {
   const { REACT_APP_CMS_URL } = process.env;
   const { image, title, description, cta_text } = feature;
+  /* TODO: Extract to common utility */
+  const imageUrl =
+    process.env.NODE_ENV === 'production'
+      ? image.url
+      : `${REACT_APP_CMS_URL}/${image.url}`;
   return (
     <div className='col-md-3'>
       <div className='card'>
         <div className='card-img-top'>
-          <img
-            className='img-fluid'
-            src={`${REACT_APP_CMS_URL}/${image.url}`}
-            alt=''
-          />
+          <img className='img-fluid' src={imageUrl} alt='' />
         </div>
         <div className='card-body'>
           <h5 className='card-title'>{title}</h5>
